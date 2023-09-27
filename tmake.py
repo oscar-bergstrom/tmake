@@ -17,10 +17,13 @@ from pathlib import Path
 class Makefile:
     """Class for represent valid data from makefiles"""
     test_src: Path
+    test_obj: Path
     target_src: Path
     target_inc: Path
+    target_obj: Path
     mocks_src: Path
     mocks_inc: Path
+    mocks_obj: Path
     make_inc: Path
 
     def __init__(self):
