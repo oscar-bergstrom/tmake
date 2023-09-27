@@ -11,20 +11,13 @@
 import argparse
 from dataclasses import dataclass
 from pathlib import Path
+import re
 
 
 @dataclass
 class Makefile:
     """Class for represent valid data from makefiles"""
-    test_src: Path
-    test_obj: Path
-    target_src: Path
-    target_inc: Path
-    target_obj: Path
-    mocks_src: Path
-    mocks_inc: Path
-    mocks_obj: Path
-    make_inc: Path
+    make_inc: str
 
     def __init__(self):
         pass
@@ -33,6 +26,9 @@ class Makefile:
     def parse(cls, filename: Path):
         m = Makefile()
 
+        with open(filename, "r").readall() as data:
+            m.make_inc = re.findall("^TESTS_MAKE.*$", data)[-1].split("=")[-1]
+        
         return m
 
 
